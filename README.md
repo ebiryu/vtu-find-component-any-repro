@@ -6,9 +6,10 @@ Reproduction for a type regression in `@vue/test-utils` 2.5.1.
 
 ```sh
 npm install
-npm run test:unit -- --run   # passes
-npm run type-check           # fails
+npm run type-check   # fails
 ```
+
+On StackBlitz, `npm run type-check` runs automatically on startup.
 
 `npm run type-check` reports:
 
@@ -16,6 +17,8 @@ npm run type-check           # fails
 src/components/__tests__/HelloWorld.spec.ts: error TS2339: Property 'vm' does not exist on type 'DOMWrapper<Node>'.
 src/components/__tests__/HelloWorld.spec.ts: error TS2339: Property 'props' does not exist on type 'DOMWrapper<Node>'.
 ```
+
+The test itself passes at runtime (`npm run test:unit -- --run`); only the types are wrong.
 
 Changing `@vue/test-utils` to `2.5.0` in `package.json` makes the type check pass
 (`findComponent(any)` returns `VueWrapper<any>`).
